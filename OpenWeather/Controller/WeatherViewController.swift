@@ -65,6 +65,7 @@ class WeatherViewController: UIViewController, CLLocationManagerDelegate, Change
             weatherDataModel.city = json["name"].stringValue
             weatherDataModel.condition = json["weather"][0]["id"].intValue
             weatherDataModel.weatherIconName = weatherDataModel.updateWeatherIcon(condition: weatherDataModel.condition)
+            updateUI()
         }else{
             self.cityLabel.text = "Weather unavailable 😢"
         }
@@ -78,7 +79,7 @@ class WeatherViewController: UIViewController, CLLocationManagerDelegate, Change
     func userEnterCityName(city: String) {
         print(city)
         let params: [String: String] = ["q": city, "appid": weatherDataModel.apiId]
-        getWeatherData(url: weatherDataModel.apiId, params: params)
+        getWeatherData(url: weatherDataModel.apiUrl, params: params)
     }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "city" {
